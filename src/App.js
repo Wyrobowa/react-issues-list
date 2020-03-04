@@ -14,10 +14,12 @@ import * as Styled from './appStyles';
 function App() {
   return (
     <Router>
-      <Styled.GlobalStyles />
-      <Header />
-      <Route exact path="/" component={IssuesList} />
-      <Route exact path="/add" component={Issue} />
+      <Styled.AppStyle>
+        <Styled.GlobalStyles />
+        <Header />
+        <Route exact path="/" component={IssuesList} />
+        <Route exact path="/add" component={Issue} />
+      </Styled.AppStyle>
     </Router>
   );
 }

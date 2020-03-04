@@ -1,10 +1,33 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 const Header = styled.header`
-  height: 20px;
-  background-color: antiquewhite;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  height: 2em;
+  padding: 1em;
+  background-color: #343a40;
+  color: #fff;
+`;
+
+const Title = styled.span`
+  font-size: 1.5em;
+  font-weight: bold;
+`;
+
+const HeaderLink = styled(Link)`
+  margin-left: 2em;
+  padding: 0.5em;
+  text-decoration: none;
+  text-align: center;
+  border-radius: .25rem;
+  color: #fff;
+  background-color: #6c757d;
 `;
 
 export {
   Header,
+  Title,
+  HeaderLink,
 };

@@ -3,6 +3,9 @@ import React, { useEffect, useState } from 'react';
 // Services
 import { fetchData } from '../../services/requestService';
 
+// Styles
+import * as Styled from './issuesListStyles';
+
 const IssuesList = () => {
   const [issues, setIssues] = useState({});
 
@@ -16,21 +19,20 @@ const IssuesList = () => {
   }, []);
 
   return (
-    <>
-      <p>List</p>
-      <div>
-        <div>Title</div>
-        <div>Description</div>
-        <div>State</div>
-      </div>
+    <Styled.IssuesList>
+      <Styled.TableHeader>
+        <Styled.Cell>Title</Styled.Cell>
+        <Styled.Cell>Description</Styled.Cell>
+        <Styled.Cell>State</Styled.Cell>
+      </Styled.TableHeader>
       {issues && issues.length > 0 && issues.map((issue) => (
-        <div>
-          <div>{issue.title}</div>
-          <div>{issue.description}</div>
-          <div>{issue.state}</div>
-        </div>
+        <Styled.TableRow key={issue.slug}>
+          <Styled.Cell>{issue.title}</Styled.Cell>
+          <Styled.Cell>{issue.description}</Styled.Cell>
+          <Styled.Cell>{issue.state}</Styled.Cell>
+        </Styled.TableRow>
       ))}
-    </>
+    </Styled.IssuesList>
   );
 };
 

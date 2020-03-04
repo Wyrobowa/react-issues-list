@@ -5,7 +5,9 @@ import * as Styled from './headerStyles';
 
 const Header = () => (
   <Styled.Header>
-    <p>Issues Management</p>
+    <Styled.Title>Issues Management</Styled.Title>
+    <Styled.HeaderLink to="/">Issues List</Styled.HeaderLink>
+    <Styled.HeaderLink to="/add">Add Issue</Styled.HeaderLink>
   </Styled.Header>
 );
 
