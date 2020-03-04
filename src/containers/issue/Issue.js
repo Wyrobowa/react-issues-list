@@ -1,14 +1,18 @@
 import React, { useState } from 'react';
+import { withRouter } from 'react-router';
 
 // Components
 import Button from '../../components/button/Button';
 import SelectField from '../../components/selectField/SelectField';
 import TextField from '../../components/textField/TextField';
 
+// Services
+import { sendData } from '../../services/requestService';
+
 // Styles
 import * as Styled from './issueStyles';
 
-const Issue = () => {
+const Issue = (props) => {
   const [issue, setIssue] = useState({
     title: '',
     description: '',
@@ -23,15 +27,16 @@ const Issue = () => {
 
   const handleFieldChange = ({ target }) => {
     const { name, value } = target;
-    console.log(name, value);
     setIssue({
       ...issue,
       [name]: value,
     });
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
+    // eslint-disable-next-line react/prop-types
+    await sendData('http://localhost:3001/add', issue, props.history);
   };
 
   return (
@@ -49,16 +54,15 @@ const Issue = () => {
         type="textarea"
         onChange={handleFieldChange}
       />
-      <SelectField
+      <TextField
         id="state"
         label="State"
-        data={states}
+        value={issue.state}
         onChange={handleFieldChange}
-        selectedValue={issue.state}
       />
       <Button type="submit" text="Add" onClick={handleSubmit} />
     </Styled.Issue>
   );
 };
 
-export default Issue;
+export default withRouter(Issue);
