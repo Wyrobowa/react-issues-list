@@ -18,10 +18,10 @@ const Title = styled.span`
 
 const HeaderLink = styled(Link)`
   margin-left: 2em;
-  padding: 0.5em;
+  padding: .5em;
   text-decoration: none;
   text-align: center;
-  border-radius: .25rem;
+  border-radius: .25em;
   color: #fff;
   background-color: #6c757d;
 `;
