@@ -1,11 +1,9 @@
 import React from 'react';
 
-const Issue = () => {
-  return (
-    <>
-      <p>Issue</p>
-    </>
-  );
-};
+const Issue = () => (
+  <>
+    <p>Issue</p>
+  </>
+);
 
 export default Issue;
