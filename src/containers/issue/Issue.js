@@ -4,9 +4,6 @@ import React, { useState } from 'react';
 import Button from '../../components/button/Button';
 import TextField from '../../components/textField/TextField';
 
-// Helpers
-import { setAlertsAction } from '../../helpers/Helpers';
-
 // Services
 import { sendData } from '../../services/requestService';
 
@@ -14,19 +11,20 @@ import { sendData } from '../../services/requestService';
 import * as Styled from './issueStyles';
 import Alert from '../../components/alert/Alert';
 
-const Issue = () => {
-  const [issue, setIssue] = useState({
-    title: '',
-    description: '',
-    state: 'open',
-  });
-  const [alerts, setAlerts] = useState([]);
+const issueInitState = {
+  title: '',
+  description: '',
+  state: 'open',
+};
 
-  const issueInitialState = {
-    title: '',
-    description: '',
-    state: 'open',
-  };
+const alertInitState = {
+  type: '',
+  msg: '',
+};
+
+const Issue = () => {
+  const [issue, setIssue] = useState(issueInitState);
+  const [alert, setAlert] = useState(alertInitState);
 
   const handleFieldChange = ({ target }) => {
     const { name, value } = target;
@@ -37,22 +35,31 @@ const Issue = () => {
   };
 
   const handleSubmit = async (event) => {
-    console.log(issueInitialState);
     event.preventDefault();
-    // eslint-disable-next-line react/prop-types
+    setAlert(alertInitState);
+
     try {
-      await sendData('http://localhost:3001/add', issue);
-      setAlertsAction(setAlerts, alerts, 'success', 'Issue has been successfully created!');
-      console.log(issueInitialState);
-      setIssue(issueInitialState);
+      await sendData('http://localhost:3001/add', issue, 'POST');
+
+      setIssue(issueInitState);
+
+      setAlert({
+        type: 'success',
+        msg: 'Issue has been successfully created!',
+      });
     } catch (error) {
-      setAlertsAction(setAlerts, alerts, 'danger', 'Something went wrong! Issue couldn\'t be created!');
+      setAlert({
+        type: 'danger',
+        msg: 'Something went wrong! Issue couldn\'t be created!',
+      });
     }
   };
 
   return (
     <>
-      <Alert alerts={alerts} />
+      {alert.type !== '' && (
+        <Alert type={alert.type} msg={alert.msg} />
+      )}
       <Styled.Issue>
         <TextField
           id="title"

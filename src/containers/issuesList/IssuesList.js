@@ -5,34 +5,40 @@ import Alert from '../../components/alert/Alert';
 import Loader from '../../components/loader/Loader';
 import SelectField from '../../components/selectField/SelectField';
 
-// Helpers
-import { setAlertsAction } from '../../helpers/Helpers';
-
 // Services
-import { fetchData, updateData } from '../../services/requestService';
+import {fetchData, sendData, updateData} from '../../services/requestService';
 
 // Styles
 import * as Styled from './issuesListStyles';
 
+const options = ['open', 'pending', 'closed'];
+const disabledOptions = {
+  open: [],
+  pending: ['open'],
+  closed: ['open', 'pending'],
+};
+
+const alertInitState = {
+  type: '',
+  msg: '',
+};
+
 const IssuesList = () => {
   const [issues, setIssues] = useState([]);
   const [fetchingData, setFetchingData] = useState(true);
-  const [alerts, setAlerts] = useState([]);
-
-  const options = ['open', 'pending', 'closed'];
-  const disabledOptions = {
-    open: [],
-    pending: ['open'],
-    closed: ['open', 'pending'],
-  };
+  const [alert, setAlert] = useState(alertInitState);
 
   useEffect(() => {
     const getData = async () => {
       try {
         const data = await fetchData('http://localhost:3001/list');
+
         setIssues(data);
       } catch (error) {
-        setAlertsAction(setAlerts, alerts, 'danger', 'Something went wrong! Data couldn\'t be fetched!');
+        setAlert({
+          type: 'danger',
+          msg: 'Something went wrong! Data couldn\'t be fetched!',
+        });
       }
 
       setFetchingData(false);
@@ -48,7 +54,7 @@ const IssuesList = () => {
 
     try {
       setFetchingData(true);
-      await updateData(`http://localhost:3001/edit/${issueSlug}`, { [name]: value });
+      await sendData(`http://localhost:3001/edit/${issueSlug}`, { [name]: value }, 'PUT');
 
       const issuesWithChangedState = issues.map((issue, index) => {
         if (index === issueIndex) {
@@ -64,9 +70,15 @@ const IssuesList = () => {
       });
 
       setIssues(issuesWithChangedState);
-      setAlertsAction(setAlerts, alerts, 'success', 'Issue has been successfully updated!');
+      setAlert({
+        type: 'success',
+        msg: 'Issue has been successfully updated!',
+      });
     } catch (error) {
-      setAlertsAction(setAlerts, alerts, 'danger', 'Something went wrong! Issue couldn\'t be updated!');
+      setAlert({
+        type: 'danger',
+        msg: 'Something went wrong! Issue couldn\'t be updated!',
+      });
     }
 
     setFetchingData(false);
@@ -74,7 +86,9 @@ const IssuesList = () => {
 
   return (
     <>
-      <Alert alerts={alerts} />
+      {alert.type !== '' && (
+        <Alert type={alert.type} msg={alert.msg} />
+      )}
       <Loader loading={fetchingData}>
         {issues.length > 0 && (
         <Styled.IssuesList>

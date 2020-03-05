@@ -4,22 +4,21 @@ import PropTypes from 'prop-types';
 // Styles
 import * as Styled from './alertStyles';
 
-const Alert = ({ alerts }) => (
-  <>
-    {console.log(alerts)}
-    {alerts.length > 0 && alerts.map((alert) => (
-      <Styled.Alert type={alert.type} key={alert.msg}>
-        <h4>{alert.msg}</h4>
-      </Styled.Alert>
-    ))}
-  </>
+const Alert = ({ type, msg, children }) => (
+  <Styled.Alert type={type}>
+    <h4>{msg}</h4>
+    {children}
+  </Styled.Alert>
 );
 
 Alert.propTypes = {
-  alerts: PropTypes.arrayOf(PropTypes.shape({
-    type: PropTypes.oneOf(['success', 'danger', 'warning', 'info']).isRequired,
-    msg: PropTypes.string.isRequired,
-  })).isRequired,
+  type: PropTypes.oneOf(['success', 'danger', 'warning', 'info']).isRequired,
+  msg: PropTypes.string.isRequired,
+  children: PropTypes.node,
+};
+
+Alert.defaultProps = {
+  children: '',
 };
 
 export default Alert;
