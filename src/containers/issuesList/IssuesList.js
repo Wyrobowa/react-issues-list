@@ -6,7 +6,7 @@ import Loader from '../../components/loader/Loader';
 import SelectField from '../../components/selectField/SelectField';
 
 // Services
-import {fetchData, sendData, updateData} from '../../services/requestService';
+import { fetchData, sendData } from '../../services/requestService';
 
 // Styles
 import * as Styled from './issuesListStyles';
@@ -79,6 +79,7 @@ const IssuesList = () => {
         type: 'danger',
         msg: 'Something went wrong! Issue couldn\'t be updated!',
       });
+      setFetchingData(false);
     }
 
     setFetchingData(false);
