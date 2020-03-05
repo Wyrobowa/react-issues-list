@@ -10,9 +10,14 @@ import { fetchData, updateData } from '../../services/requestService';
 import * as Styled from './issuesListStyles';
 
 const IssuesList = () => {
-  const [issues, setIssues] = useState({});
+  const [issues, setIssues] = useState([]);
 
   const options = ['open', 'pending', 'closed'];
+  const disabledOptions = {
+    open: [],
+    pending: ['open'],
+    closed: ['open', 'pending'],
+  };
 
   useEffect(() => {
     const getData = async () => {
@@ -51,29 +56,37 @@ const IssuesList = () => {
   };
 
   return (
-    <Styled.IssuesList>
-      <Styled.TableHeader>
-        <Styled.Cell>Title</Styled.Cell>
-        <Styled.Cell>Description</Styled.Cell>
-        <Styled.Cell>State</Styled.Cell>
-      </Styled.TableHeader>
-      {issues && issues.length > 0 && issues.map((issue, index) => (
-        <Styled.TableRow key={issue.slug}>
-          <Styled.Cell>{issue.title}</Styled.Cell>
-          <Styled.Cell>{issue.description}</Styled.Cell>
-          <Styled.Cell>
-            <SelectField
-              id="state"
-              data={options}
-              onChange={handleFieldChange}
-              selectedValue={issue.state}
-              itemIndex={index}
-              itemSlug={issue.slug}
-            />
-          </Styled.Cell>
-        </Styled.TableRow>
-      ))}
-    </Styled.IssuesList>
+    <>
+      {issues.length > 0 && (
+        <Styled.IssuesList>
+          <Styled.TableHeader>
+            <Styled.Cell>Title</Styled.Cell>
+            <Styled.Cell>Description</Styled.Cell>
+            <Styled.Cell>State</Styled.Cell>
+          </Styled.TableHeader>
+          {issues.map((issue, index) => (
+            <Styled.TableRow key={issue.slug}>
+              <Styled.Cell>{issue.title}</Styled.Cell>
+              <Styled.Cell>{issue.description}</Styled.Cell>
+              <Styled.Cell>
+                <SelectField
+                  id="state"
+                  options={options}
+                  onChange={handleFieldChange}
+                  selectedValue={issue.state}
+                  itemIndex={index}
+                  itemSlug={issue.slug}
+                  disabledOptions={disabledOptions}
+                />
+              </Styled.Cell>
+            </Styled.TableRow>
+          ))}
+        </Styled.IssuesList>
+      )}
+      {issues.length === 0 && (
+        <Styled.EmptyListText>No issues available</Styled.EmptyListText>
+      )}
+    </>
   );
 };
 

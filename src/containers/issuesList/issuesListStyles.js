@@ -21,9 +21,17 @@ const Cell = styled.div`
   text-align: left;
 `;
 
+const EmptyListText = styled.div`
+  padding: 1em;
+  font-size: 1.5em;
+  font-weight: bold;
+  text-align: center;
+`;
+
 export {
   IssuesList,
   TableHeader,
   TableRow,
   Cell,
+  EmptyListText,
 };

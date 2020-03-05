@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import * as Styled from './selectFieldStyles';
 
 const SelectField = ({
-  id, label, data, selectedValue, itemIndex, itemSlug, onChange,
+  id, label, options, disabledOptions, selectedValue, itemIndex, itemSlug, onChange,
 }) => (
   <Styled.SelectField>
     {label && (
@@ -19,15 +19,17 @@ const SelectField = ({
       data-index={itemIndex}
       data-slug={itemSlug}
     >
-      <option> --- </option>
-      {data && data.map((option) => (
-        <option
-          key={option}
-          value={option}
-        >
-          {option}
-        </option>
-      ))}
+      {options && options.map((option) => {
+        return (
+          <option
+            key={option}
+            value={option}
+            disabled={disabledOptions[selectedValue].includes(option)}
+          >
+            {option}
+          </option>
+        );
+      })}
     </Styled.Select>
   </Styled.SelectField>
 );
@@ -35,7 +37,8 @@ const SelectField = ({
 SelectField.propTypes = {
   id: PropTypes.string.isRequired,
   label: PropTypes.string,
-  data: PropTypes.array.isRequired,
+  options: PropTypes.array.isRequired,
+  disabledOptions: PropTypes.object.isRequired,
   selectedValue: PropTypes.string,
   itemIndex: PropTypes.number.isRequired,
   itemSlug: PropTypes.string.isRequired,
