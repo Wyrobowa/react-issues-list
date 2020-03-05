@@ -94,15 +94,15 @@ const IssuesList = () => {
         {issues.length > 0 && (
         <Styled.IssuesList>
           <Styled.TableHeader>
-            <Styled.Cell>Title</Styled.Cell>
-            <Styled.Cell>Description</Styled.Cell>
-            <Styled.Cell>State</Styled.Cell>
+            <Styled.TitleCell>Title</Styled.TitleCell>
+            <Styled.DescriptionCell>Description</Styled.DescriptionCell>
+            <Styled.StatusCell>State</Styled.StatusCell>
           </Styled.TableHeader>
           {issues.map((issue, index) => (
             <Styled.TableRow key={issue.slug}>
-              <Styled.Cell>{issue.title}</Styled.Cell>
-              <Styled.Cell>{issue.description}</Styled.Cell>
-              <Styled.Cell>
+              <Styled.TitleCell>{issue.title}</Styled.TitleCell>
+              <Styled.DescriptionCell>{issue.description}</Styled.DescriptionCell>
+              <Styled.StatusCell>
                 <SelectField
                   id="state"
                   selectedValue={issue.state}
@@ -113,7 +113,7 @@ const IssuesList = () => {
                   onChange={handleFieldChange}
                   disabledSelect={issue.state === 'closed' ? 'disabled' : ''}
                 />
-              </Styled.Cell>
+              </Styled.StatusCell>
             </Styled.TableRow>
           ))}
         </Styled.IssuesList>

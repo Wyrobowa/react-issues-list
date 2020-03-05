@@ -2,11 +2,22 @@ import styled from 'styled-components';
 
 const IssuesList = styled.div`
   display: flex;
-  flex-flow: column;
+  flex-direction: column;
+  max-width: 1440px;
+  margin: 0 auto;
+  @media (min-width: 1440px) {
+    border: 1px solid #d6d8db;
+  }
 `;
 
 const TableRow = styled.div`
   display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid #d6d8db;
+  
+  @media (min-width: 768px) {
+    flex-direction: row;
+  }
 `;
 
 const TableHeader = styled(TableRow)`
@@ -16,9 +27,28 @@ const TableHeader = styled(TableRow)`
 `;
 
 const Cell = styled.div`
-  width: calc(100%/3);
+  width: 100%;
   padding: 1em;
   text-align: left;
+  box-sizing: border-box;
+`;
+
+const TitleCell = styled(Cell)`
+  @media (min-width: 768px) {
+    width: 20%;
+  }
+`;
+
+const DescriptionCell = styled(Cell)`
+  @media (min-width: 768px) {
+    width: 60%;
+  }
+`;
+
+const StatusCell = styled(Cell)`
+  @media (min-width: 768px) {
+    width: 20%;
+  }
 `;
 
 const EmptyListText = styled.div`
@@ -33,5 +63,8 @@ export {
   TableHeader,
   TableRow,
   Cell,
+  TitleCell,
+  DescriptionCell,
+  StatusCell,
   EmptyListText,
 };
