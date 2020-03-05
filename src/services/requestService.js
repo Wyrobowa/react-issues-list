@@ -1,6 +1,3 @@
-// Helpers
-import { changeURL } from '../helpers/Helpers';
-
 export const fetchData = (url) => new Promise((resolve, reject) => {
   fetch(url)
     .then((response) => response.json())
@@ -8,7 +5,7 @@ export const fetchData = (url) => new Promise((resolve, reject) => {
     .catch((error) => reject(error));
 });
 
-export const sendData = (url, formData, history) => new Promise((resolve, reject) => {
+export const sendData = (url, formData) => new Promise((resolve, reject) => {
   fetch(url, {
     method: 'POST',
     headers: {
@@ -19,7 +16,6 @@ export const sendData = (url, formData, history) => new Promise((resolve, reject
     .then((response) => response.json())
     .then((data) => {
       resolve(data.data);
-      changeURL(history, '/');
     })
     .catch((error) => reject(error));
 });
@@ -35,7 +31,6 @@ export const updateData = (url, formData) => new Promise((resolve, reject) => {
     .then((response) => response.json())
     .then((data) => {
       resolve(data.data);
-      // changeURL(history, '/');
     })
     .catch((error) => reject(error));
 });

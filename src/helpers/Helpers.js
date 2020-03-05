@@ -1,5 +1,9 @@
-export const changeURL = (history, url) => {
-  history.push({
-    pathname: url,
-  });
+export const setAlertsAction = (setState, state, type, msg) => {
+  setState([
+    ...state,
+    {
+      type,
+      msg,
+    },
+  ]);
 };
