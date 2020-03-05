@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import * as Styled from './selectFieldStyles';
 
 const SelectField = ({
-  id, label, options, disabledOptions, selectedValue, itemIndex, itemSlug, onChange,
+  id, label, selectedValue, options, disabledOptions, itemIndex, itemSlug, onChange, disabledSelect,
 }) => (
   <Styled.SelectField>
     {label && (
@@ -18,18 +18,17 @@ const SelectField = ({
       value={selectedValue}
       data-index={itemIndex}
       data-slug={itemSlug}
+      disabled={disabledSelect}
     >
-      {options && options.map((option) => {
-        return (
-          <option
-            key={option}
-            value={option}
-            disabled={disabledOptions[selectedValue].includes(option)}
-          >
-            {option}
-          </option>
-        );
-      })}
+      {options && options.map((option) => (
+        <option
+          key={option}
+          value={option}
+          disabled={disabledOptions[selectedValue].includes(option)}
+        >
+          {option}
+        </option>
+      ))}
     </Styled.Select>
   </Styled.SelectField>
 );
@@ -37,17 +36,19 @@ const SelectField = ({
 SelectField.propTypes = {
   id: PropTypes.string.isRequired,
   label: PropTypes.string,
-  options: PropTypes.array.isRequired,
-  disabledOptions: PropTypes.object.isRequired,
+  options: PropTypes.arrayOf(PropTypes.string).isRequired,
+  disabledOptions: PropTypes.shape({}).isRequired,
   selectedValue: PropTypes.string,
   itemIndex: PropTypes.number.isRequired,
   itemSlug: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
+  disabledSelect: PropTypes.string,
 };
 
 SelectField.defaultProps = {
   label: null,
   selectedValue: 'open',
+  disabledSelect: '',
 };
 
 export default SelectField;

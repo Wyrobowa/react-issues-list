@@ -51,7 +51,7 @@ const Issue = (props) => {
         id="state"
         label="State"
         value={issue.state}
-        onChange={handleFieldChange}
+        disabled="disabled"
       />
       <Button type="submit" text="Add" onClick={handleSubmit} />
     </Styled.Issue>
