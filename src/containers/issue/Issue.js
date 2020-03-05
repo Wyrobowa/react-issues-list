@@ -3,7 +3,6 @@ import { withRouter } from 'react-router';
 
 // Components
 import Button from '../../components/button/Button';
-import SelectField from '../../components/selectField/SelectField';
 import TextField from '../../components/textField/TextField';
 
 // Services
@@ -18,12 +17,6 @@ const Issue = (props) => {
     description: '',
     state: 'open',
   });
-
-  const states = [
-    'open',
-    'pending',
-    'closed',
-  ];
 
   const handleFieldChange = ({ target }) => {
     const { name, value } = target;

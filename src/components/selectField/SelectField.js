@@ -5,15 +5,19 @@ import PropTypes from 'prop-types';
 import * as Styled from './selectFieldStyles';
 
 const SelectField = ({
-  id, label, data, selectedValue, onChange,
+  id, label, data, selectedValue, itemIndex, itemSlug, onChange,
 }) => (
   <Styled.SelectField>
-    <Styled.Label htmlFor={id}>{label}</Styled.Label>
+    {label && (
+      <Styled.Label htmlFor={id}>{label}</Styled.Label>
+    )}
     <Styled.Select
       id={id}
       name={id}
       onChange={onChange}
       value={selectedValue}
+      data-index={itemIndex}
+      data-slug={itemSlug}
     >
       <option> --- </option>
       {data && data.map((option) => (
@@ -30,13 +34,16 @@ const SelectField = ({
 
 SelectField.propTypes = {
   id: PropTypes.string.isRequired,
-  label: PropTypes.string.isRequired,
+  label: PropTypes.string,
   data: PropTypes.array.isRequired,
   selectedValue: PropTypes.string,
+  itemIndex: PropTypes.number.isRequired,
+  itemSlug: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
 };
 
 SelectField.defaultProps = {
+  label: null,
   selectedValue: 'open',
 };
 
