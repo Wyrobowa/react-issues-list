@@ -1,3 +1,9 @@
+/**
+ * Fetch external data
+ *
+ * @param {String} url
+ * @returns {Promise}
+ */
 export const fetchData = (url) => new Promise((resolve, reject) => {
   fetch(url)
     .then((response) => response.json())
@@ -9,7 +15,15 @@ export const fetchData = (url) => new Promise((resolve, reject) => {
     });
 });
 
-export const sendData = (url, formData, method) => new Promise((resolve, reject) => {
+/**
+ * Send data to external URL
+ *
+ * @param {String} url
+ * @param {String} method
+ * @param {Object} formData
+ * @returns {Promise}
+ */
+export const sendData = (url, method, formData) => new Promise((resolve, reject) => {
   fetch(url, {
     method,
     headers: {

@@ -54,7 +54,7 @@ const IssuesList = () => {
 
     try {
       setFetchingData(true);
-      await sendData(`http://localhost:3001/edit/${issueSlug}`, { [name]: value }, 'PUT');
+      await sendData(`http://localhost:3001/edit/${issueSlug}`, 'PUT', { [name]: value });
 
       const issuesWithChangedState = issues.map((issue, index) => {
         if (index === issueIndex) {

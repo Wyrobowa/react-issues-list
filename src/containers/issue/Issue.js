@@ -39,7 +39,7 @@ const Issue = () => {
     setAlert(alertInitState);
 
     try {
-      await sendData('http://localhost:3001/add', issue, 'POST');
+      await sendData('http://localhost:3001/add', 'POST', issue);
 
       setIssue(issueInitState);
 
